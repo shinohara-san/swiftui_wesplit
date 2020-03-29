@@ -8,9 +8,14 @@ struct ContentView: View {
     @State private var tipPercentage = 2
     let tipPercentages = [10, 15, 20, 25, 0]
     
+//    //challenge from project3 これ不要。直接式を三項演算子の最初に入れればOk
+//    @State var noTip:Bool = false
+//
     var totalPerPerson: Double {
-        let peopleCount = Double((Int(numberOfPeople) ?? 0) + 2)
+        let peopleCount = Double(Int(numberOfPeople) ?? 0)
+    
         let tipSelection = Double(tipPercentages[tipPercentage])
+  
         let orderAmount = Double(checkAmount) ?? 0
         
         let tipValue = orderAmount / 100 * tipSelection
@@ -37,6 +42,10 @@ struct ContentView: View {
                     //                }
                 }
                 
+                
+                
+                
+                
                 Section (header: Text("How much tip do you want to leave?")){
                     
                     Picker("Tip percentage", selection: $tipPercentage) {
@@ -46,13 +55,14 @@ struct ContentView: View {
                         }
                     }.pickerStyle(SegmentedPickerStyle()) //選択肢少ないときはこっちが見栄えいい
                 }
+        
                 
                 Section (header: Text("Amount per person")){
                     Text("$\(totalPerPerson, specifier: "%.2f")")
                 }
                 
-                Section (header: Text("Amount")){
-                    Text("$\(checkAmount)")
+                Section (header: Text("Total Amount")){
+                    Text("$\(checkAmount)").foregroundColor(tipPercentages[tipPercentage] == 0 ? .red: .black)
                 }
                 
                 
